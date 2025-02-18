@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } // Singleton pattern
@@ -33,6 +34,13 @@ public class GameManager : MonoBehaviour
         {
             Respawn();
         }
+
+        // Destroy player when timer reaches stopTime
+        if (Timer.Instance != null && Timer.Instance.   elapsedTime >= Timer.Instance.stopTime)
+        {
+            Debug.Log("Time is up! Destroying player...");
+            Destroy(player);
+        }
     }
 
     public void SetCheckpoint(Vector3 checkpointPosition)
@@ -47,7 +55,7 @@ public class GameManager : MonoBehaviour
         if (checkpointReached)
         {
             Debug.Log("Respawning at: " + lastCheckpointPosition);
-            player.transform.position = lastCheckpointPosition; 
+            player.transform.position = lastCheckpointPosition;
         }
         else
         {
@@ -60,6 +68,10 @@ public class GameManager : MonoBehaviour
         if (other.CompareTag("DeathZone"))
         {
             Respawn();
+        }
+        if (other.CompareTag("FinishLine"))
+        {
+            Timer.Instance.StopTimer();
         }
     }
 }

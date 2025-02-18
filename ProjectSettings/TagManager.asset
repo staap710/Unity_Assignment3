@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - Enemy
   - DeathZone
+  - FinishLine
   layers:
   - Default
   - TransparentFX
